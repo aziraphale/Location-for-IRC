@@ -37,23 +37,6 @@ class Coordinates {
         }
     }
     
-    private static function parseFraction($string) {
-        return eval("return $string;");
-    }
-    
-    public static function fromExifArrays($latRef, array $lat, $lonRef, array $lon) {
-        return new Coordinates(
-            $latRef, 
-            self::parseFraction($lat[0]),
-            self::parseFraction($lat[1]),
-            self::parseFraction($lat[2]),
-            $lonRef,
-            self::parseFraction($lon[0]),
-            self::parseFraction($lon[1]),
-            self::parseFraction($lon[2])
-        );
-    }
-    
     public static function fromDecimals($latitude, $longitude) {
         $latRef = ($latitude >= 0) ? 'N' : 'S';
         $lonRef = ($longitude >= 0) ? 'E' : 'W';

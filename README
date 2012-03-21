@@ -1,0 +1,23 @@
+Location-Finder for the Associated PHP-IRC Module
+===========================================================
+
+This is a simple Web page that fetches the user's geographical location and then, optionally, stores the result to be reported to IRC by a PHP-IRC bot running the related module.
+
+I originally created this script while I was learning about HTML5's geolocation functionality. It then evolved to allow me to report my location to IRC, which I sometimes use while driving to visit friends (who are also on IRC) - a simple load of a bookmarked Web page will automatically tell those friends where I am (and, therefore, roughly how far away I am from them and they can estimate when they can expect me to arrive).
+
+
+Configuration
+-------------------
+Configuring this script is simply a case of changing the array at the top of the script that maps IRC nicks to a temporary file in which to store the location data.
+
+
+Usage
+-------------------
+If accessed with no query string (GET arguments), this script simply fetches the user's location and displays it.
+If a "name" GET argument is passed, containing an IRC nick set in the $userList array, it will then store that location data in the relevant temporary file to allow the IRC bot to report it.
+
+
+Known Issues
+-------------------
+ * No verification is performed on the passed "name", so it is easy to spoof and claim to be someone you're not. This could be alleviated by using arbitrary, long, difficult-to-guess strings as the keys ("nicks") in the $userList array instead of IRC nicks. These keys are not required to match IRC nicks, however the passed "name" GET argument must match whatever has been set as the array key.
+ * The script doesn't redirect elsewhere after submitting the location, so if the Web browser is closed (or removed from the running state & memory on mobile devices) and then subsequently re-opened, this page will be re-loaded and the user's location will be again reported, probably unintentionally. This can be fixed by automatically redirecting the page to, for example, a "?name=foo&done" query string after submitting the location, and not submitting the location if the "done" argument is present. A "reload location" button should probably then exist, as well.
